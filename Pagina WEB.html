@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispensador de comida Automatizado</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://github.com/AlecamG/Proyecto/blob/main/pexels-cottonbro-9667253.jpg?raw=true') no-repeat center center fixed;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #2980b9;
+        }
+        h2 {
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 5px;
+            color: #2c3e50;
+        }
+        h2, h3 {
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 5px;
+            color: #000;
+        }
+        p, ul {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 10px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Bienvenido a Atenea's Candy</h1>
+    <p class="subtitulo">Realizado por: Juan Esteban Nausa Trujillo-20231005134 y Alejandro Camacho Garzón-20231005021</p>
+    <h1>Control de Servo y LEDs</h1>
+    
+    <div class="button-container">
+        <button class="big-button" onclick="toggleButton()">Presionar Botón</button>
+        <p id="status">Estado: En reposo</p>
+    </div>
+</div>
+
+<style>
+    .container {
+        text-align: center;
+    }
+    
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+    
+    .big-button {
+        font-size: 20px;
+        padding: 15px 30px;
+        margin-bottom: 10px;
+    }
+    
+    #status {
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
+
+
+    <script>
+        function toggleButton() {
+            fetch('/toggle')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('status').innerText = "Estado: " + data;
+                });
+        }
+
+        function updateStatus() {
+            fetch('/status')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('status').innerText = "Estado: " + data;
+                });
+        }
+
+        setInterval(updateStatus, 1000);  // Actualiza cada segundo
+    </script>
+        <div class="section">
+            <h2>Introducción</h2>
+            <p>En la actualidad, el cuidado de las mascotas es una prioridad para muchas personas, quienes buscan soluciones prácticas y efectivas que faciliten su vida diaria. Una de las principales dificultades que enfrentan los dueños de mascotas es el manejo del alimento en grandes cantidades, lo cual puede generar incomodidades al momento de servir las raciones diarias.</p>
+        </div>        
+        <div class="section">
+            <h2>Descripción del problema</h2>
+            <p>Muchos dueños de mascotas optan por comprar bolsas grandes de alimento para economizar, pero al momento de servir las raciones, manipular estas bolsas resulta incómodo, especialmente cuando se hace de manera frecuente. La falta de un sistema práctico para almacenar y dispensar porciones adecuadas de alimento puede generar conflictos, desorden y pérdida de tiempo.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Objetivos</h2>
+            <p>El objetivo de este proyecto es desarrollar un dispensador de alimentos automatizado utilizando un microcontrolador ESP32. Este dispositivo será capaz de almacenar entre 4 y 5 porciones de alimento, permitiendo a los dueños de mascotas dispensar las raciones necesarias de manera remota y eficiente.</p>
+        </div>
+      
+        <div class="section">
+            <h2>Componentes a utilizar</h2>
+            <ul>
+                <li>ESP 32</li>
+                <li>Servo motor SG90</li>
+                <li>Jumpers</li>
+                <li>2 resistencias de 18 ohms</li>
+                <li>1 LED rojo</li>
+                <li>1 LED verde</li>
+                <li>Cable micro usb para la alimentación del Esp 32</li>
+                <li>Un telefono o Computador con acceso a internet</li>
+                <li>Software: Thonny y Visual Studio Code</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Diseño del producto:</h2>
+            <div class="section">
+                <h2>Electronico:</h2>    
+                <div class="image-container">
+                    <img src="https://github.com/AlecamG/Proyecto/blob/main/Proyecto%20programacion.png?raw=true" alt="Montaje electronico" class="imagen-seccion">
+                </div>
+            </div>
+            <style>
+                .image-container {
+                    text-align: center; /* Centra la imagen dentro del contenedor */
+                    margin: 20px 0; /* Espaciado alrededor de la imagen */
+                }
+            
+                .image-container img {
+                    width: 60%; /* Ajusta el tamaño al 80% del contenedor */
+                    max-width: 600px; /* Limita el tamaño máximo de la imagen */
+                    height: auto; /* Mantiene la relación de aspecto de la imagen */
+                }
+            </style>
+
+            <div class="section">
+                <h2>Montaje final:</h2>
+                <div class="image-container">
+                    <img src="https://github.com/AlecamG/Proyecto/blob/main/Montaje%20practico.png?raw=true" alt="Montaje electronico" class="imagen-seccion">
+                </div>
+            </div>
+            <style>
+                .image-container {
+                    text-align: center; /* Centra la imagen dentro del contenedor */
+                    margin: 20px 0; /* Espaciado alrededor de la imagen */
+                }
+            
+                .image-container img {
+                    width: 60%; /* Ajusta el tamaño al 80% del contenedor */
+                    max-width: 600px; /* Limita el tamaño máximo de la imagen */
+                    height: auto; /* Mantiene la relación de aspecto de la imagen */
+                }
+            </style>
+            <div class="section">
+                
+        </div>
+
+        <div class="section">
+            <h2>Proceso de la construcción</h2>
+            <p>El desarrollo del dispensador de alimentos automatizado con un microcontrolador ESP32 se llevó a cabo en varias etapas, desde la programación inicial hasta el ensamblaje final del dispositivo. A continuación, se detallan los pasos seguidos durante la construcción del prototipo.</p>
+            
+            <h3>1. Programación y pruebas iniciales</h3>
+            <p>La primera fase del proyecto consistió en la programación del ESP32 para controlar el servomotor SG90. Se inició con un código simple que permitía al servomotor girar automáticamente 90 grados, simulando la apertura y cierre del dispensador de alimentos.</p>
+            <p>Una vez verificado el funcionamiento básico del servomotor, se incorporó un pulsador que permitiera controlar el movimiento del servo de manera manual.</p>
+            
+            <h3>2. Incorporación de indicadores luminosos</h3>
+            <p>Se agregaron dos LEDs para indicar el estado del dispensador:</p>
+            <ul>
+                <li><b>LED rojo:</b> Indica que el dispensador está en estado "cerrado".</li>
+                <li><b>LED verde:</b> Indica que el dispensador está en estado "abierto".</li>
+            </ul>
+            
+            <h3>3. Construcción del mecanismo de dispensador</h3>
+            <p>Se utilizó un tubo cilíndrico para almacenar el alimento y una hélice acoplada al servomotor para regular su salida.</p>
+            
+            <h3>4. Ensamblaje del sistema electrónico</h3>
+            <p>Los componentes electrónicos se soldaron y organizaron en una protoboard compacta dentro de la estructura del dispensador.</p>
+            
+            <h3>5. Integración y pruebas finales</h3>
+            <p>Se realizaron pruebas para verificar la correcta operación del servomotor, LEDs y pulsador, asegurando la funcionalidad del dispensador.</p>
+        </div>
+
+        <div class="section">
+            <h2>Conclusiones</h2>
+            <p>El desarrollo del dispensador de alimentos automatizado con un microcontrolador ESP32 ha demostrado ser una solución efectiva para mejorar la experiencia de los dueños de mascotas al enfrentar el reto de manejar y servir raciones de alimento de manera eficiente.  </p>
+            <p>No solo optimiza la alimentación de las mascotas, sino que también representa una aplicación práctica de la programación y la electrónica en la vida cotidiana. A través de la integración de un ESP32, servomotores y sensores visuales, se logró diseñar un sistema eficiente y accesible, que demuestra la importancia de la automatización en la mejora de tareas rutinarias. Además, este proyecto abre la puerta a futuras mejoras, como la incorporación de control remoto mediante una aplicación móvil o la adaptación a diferentes tipos de alimentos. </p>
+        </div>
+
+        <div class="section">
+            <h2>Nuestra inspiración:</h2>
+            <div class="image-row">
+                <img src="https://github.com/AlecamG/Proyecto/blob/main/oa.jpg?raw=true" alt="Atenea">
+                <img src="https://github.com/AlecamG/Proyecto/blob/main/oe.jpg?raw=true" alt="Candy">
+            </div>
+            
+            <style>
+                .image-row {
+                    display: flex; /* Activa el modelo flexbox */
+                    justify-content: space-between; /* Espacio entre las imágenes */
+                    gap: 10px; /* Espacio entre las imágenes */
+                    margin: 20px 0; /* Espaciado alrededor del contenedor */
+                }
+            
+                .image-row img {
+                    max-width: 50%; /* Hace que la imagen no se desborde */
+                    height: auto; /* Mantiene la relación de aspecto de la imagen */
+                    border-radius: 10px; /* Bordes redondeados */
+                }
+            </style>
+            <p> Atenea y Candy, ellas dos nos inspiraron a relizar este proyecto, ya que queremos darle un mejor cuidado. </p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Proyecto de Dispensador de Alimentos Automatizado</p>
+    </footer>
+</body>
+</html>
